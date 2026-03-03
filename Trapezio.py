@@ -67,7 +67,6 @@ for i,(p1, p2) in enumerate(aresta):
   print (f"E{i + 1}: ({x1}, {y1}) -> ({x2}, {y2}) " 
           f" | Comprimento = {comprimento: 2f}")
 
-#José Gabriel
 def imprimir_estrutura(ponto, aresta, face, matriz):
     print("\n" + "="*50)
     print("ESTRUTURA DO OBJETO - TRÊS TRAPÉZIOS")
