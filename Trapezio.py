@@ -1,5 +1,5 @@
 import math
-#Função para que a entrada aceite penas inteiros.
+
 def valida_int(texto):
     cond = True
     while cond:
