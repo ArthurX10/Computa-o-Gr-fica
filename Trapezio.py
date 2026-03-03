@@ -66,3 +66,36 @@ for i,(p1, p2) in enumerate(aresta):
 
   print (f"E{i + 1}: ({x1}, {y1}) -> ({x2}, {y2}) " 
           f" | Comprimento = {comprimento: 2f}")
+
+#José Gabriel
+def imprimir_estrutura(ponto, aresta, face, matriz):
+    print("\n" + "="*50)
+    print("ESTRUTURA DO OBJETO - TRÊS TRAPÉZIOS")
+    print("="*50)
+
+    print("\nLISTA DE PONTOS:")
+    for i, (x, y) in enumerate(ponto):
+        print(f"P{i}: ({x}, {y})")
+
+    print(f"\nTotal de Pontos: {len(ponto)}")
+
+    print("\nLISTA DE ARESTAS:")
+    for i, (p1, p2) in enumerate(aresta):
+        print(f"E{i}: P{p1} -> P{p2}")
+
+    print(f"\nTotal de Arestas: {len(aresta)}")
+
+    print("\nLISTA DE FACES:")
+    for i, f in enumerate(face):
+        pontos_face = " - ".join([f"P{p}" for p in f])
+        print(f"F{i}: {pontos_face}")
+
+    print(f"\nTotal de Faces: {len(face)}")
+
+    print("\nMATRIZ DO SRU:")
+    for linha in matriz:
+        print(" ".join(linha))
+
+    print("\n" + "="*50)
+
+imprimir_estrutura(ponto, aresta, face, m)
