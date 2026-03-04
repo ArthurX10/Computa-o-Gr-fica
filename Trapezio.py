@@ -1,100 +1,114 @@
 import math
 
 def valida_int(texto):
-    cond = True
-    while cond:
+    while True:
         try:
-            valor = int(input(f"{texto}"))
-            cond = False
+            return int(input(texto))
         except ValueError:
             print("Digite apenas valores inteiros!")
-    return valor
 
-xmin = valida_int('Informe o limite inferior de X: ')
-xmax = valida_int('Informe o limite superior de X: ')
-ymin = valida_int('Informe o limite inferior de Y: ')
-ymax = valida_int('Informe o limite superior de Y: ')
+
+xmin = valida_int("Informe o limite inferior de X: ")
+xmax = valida_int("Informe o limite superior de X: ")
+ymin = valida_int("Informe o limite inferior de Y: ")
+ymax = valida_int("Informe o limite superior de Y: ")
 
 if xmin >= xmax or ymin >= ymax:
-    print("Os valores minimos devem ser menores que os maximos.")
+    print("Os valores mínimos devem ser menores que os máximos.")
     exit()
 
-l = xmax - xmin + 1
-a = ymax - ymin + 1
+# Definição do SRU
 
-m = []
+largura = xmax - xmin + 1
+altura = ymax - ymin + 1
 
-for i in range(a):
-    aux = []
-    for j in range(l):
-        aux.append('.')
-    m.append(aux)
+def criar_matriz():
+    return [["." for _ in range(largura)] for _ in range(altura)]
 
-ponto = [
-         (3,4), (6,4), (5,8), (4,8),     
-         (9,4), (12,4), (11,8), (10,8),  
-         (15,4), (18,4), (17,8), (16,8)   
-        ]
+# Estruturas de dados
 
-aresta = [
-           (0,1), (1,2), (2,3), (3,0),
-           (4,5), (5,6), (6,7), (7,4),
-           (8,9), (9,10), (10,11), (11,8)
-         ]
+pontos = [
+    (3,4), (6,4), (5,8), (4,8),
+    (9,4), (12,4), (11,8), (10,8),
+    (15,4), (18,4), (17,8), (16,8)
+]
 
-face = [
-        (0,1,2,3),
-        (4,5,6,7),
-        (8,9,10,11)
-       ]
+arestas = [
+    (0,1), (1,2), (2,3), (3,0),
+    (4,5), (5,6), (6,7), (7,4),
+    (8,9), (9,10), (10,11), (11,8)
+]
 
-for (px, py) in ponto:
-    col = px - xmin
-    lin = ymax - py
+faces = [
+    (0,1,2,3),
+    (4,5,6,7),
+    (8,9,10,11)
+]
 
-    if 0 <= lin < a and 0 <= col < l:
-        m[lin][col] = 'x'
+# Operações geométricas
 
-def mapear_arestas(ponto, aresta):
-print("\nMAPEAMENTO DE ARESTAS:\n")
+def transladar_pontos(pontos, dx, dy):
+    novos = []
+    for (x, y) in pontos:
+        novos.append((x + dx, y + dy))
+    return novos
 
-for i,(p1, p2) in enumerate(aresta):
-  x1, y1 = ponto[p1]
-  x2, y2 = ponto[p2]
+# Renderização
 
-  comprimento = math.sqrt(x2 -x1)**2 + (y2 - y1)**2)
+def desenhar_pontos(pontos, matriz):
+    for (px, py) in pontos:
+        col = px - xmin
+        lin = ymax - py
+        if 0 <= lin < altura and 0 <= col < largura:
+            matriz[lin][col] = "X"
 
-  print (f"E{i + 1}: ({x1}, {y1}) -> ({x2}, {y2}) " 
-          f" | Comprimento = {comprimento: 2f}")
+# Consultas
 
-def imprimir_estrutura(ponto, aresta, face, matriz):
+def mapear_arestas(pontos, arestas):
+    print("\nMAPEAMENTO DE ARESTAS:\n")
+    for i, (p1, p2) in enumerate(arestas):
+        x1, y1 = pontos[p1]
+        x2, y2 = pontos[p2]
+        comprimento = math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
+        print(f"E{i}: ({x1},{y1}) -> ({x2},{y2}) | Comprimento = {comprimento:.2f}")
+
+# Impressão da estrutura
+
+def imprimir_estrutura(pontos, arestas, faces, matriz):
     print("\n" + "="*50)
     print("ESTRUTURA DO OBJETO - TRÊS TRAPÉZIOS")
     print("="*50)
 
     print("\nLISTA DE PONTOS:")
-    for i, (x, y) in enumerate(ponto):
-        print(f"P{i}: ({x}, {y})")
-
-    print(f"\nTotal de Pontos: {len(ponto)}")
+    for i, p in enumerate(pontos):
+        print(f"P{i}: {p}")
 
     print("\nLISTA DE ARESTAS:")
-    for i, (p1, p2) in enumerate(aresta):
+    for i, (p1, p2) in enumerate(arestas):
         print(f"E{i}: P{p1} -> P{p2}")
 
-    print(f"\nTotal de Arestas: {len(aresta)}")
-
     print("\nLISTA DE FACES:")
-    for i, f in enumerate(face):
-        pontos_face = " - ".join([f"P{p}" for p in f])
-        print(f"F{i}: {pontos_face}")
-
-    print(f"\nTotal de Faces: {len(face)}")
+    for i, f in enumerate(faces):
+        print(f"F{i}: {f}")
 
     print("\nMATRIZ DO SRU:")
     for linha in matriz:
         print(" ".join(linha))
 
-    print("\n" + "="*50)
+    print("="*50)
 
-imprimir_estrutura(ponto, aresta, face, m)
+matriz = criar_matriz()
+desenhar_pontos(pontos, matriz)
+imprimir_estrutura(pontos, arestas, faces, matriz)
+mapear_arestas(pontos, arestas)
+
+dx = valida_int("\nInforme o deslocamento em X (dx): ")
+dy = valida_int("Informe o deslocamento em Y (dy): ")
+
+pontos = transladar_pontos(pontos, dx, dy)
+
+matriz = criar_matriz()
+desenhar_pontos(pontos, matriz)
+
+print("\nAPÓS TRANSLAÇÃO:")
+imprimir_estrutura(pontos, arestas, faces, matriz)
