@@ -7,7 +7,6 @@ def valida_int(texto):
         except ValueError:
             print("Digite apenas valores inteiros!")
 
-
 xmin = valida_int("Informe o limite inferior de X: ")
 xmax = valida_int("Informe o limite superior de X: ")
 ymin = valida_int("Informe o limite inferior de Y: ")
@@ -18,7 +17,6 @@ if xmin >= xmax or ymin >= ymax:
     exit()
 
 # Definição do SRU
-
 largura = xmax - xmin + 1
 altura = ymax - ymin + 1
 
@@ -26,7 +24,6 @@ def criar_matriz():
     return [["." for _ in range(largura)] for _ in range(altura)]
 
 # Estruturas de dados
-
 #Pontos estruturados via geogebra -> Tem que ser no mínimo 25x30 para visualizar
 pontos = [
     (10,3), (2,3), (6,8), (2,8), #Trapézio retângulo
@@ -47,7 +44,6 @@ faces = [
 ]
 
 # Operações geométricas
-
 def transladar_pontos(pontos, dx, dy):
     novos = []
     for (x, y) in pontos:
@@ -55,7 +51,6 @@ def transladar_pontos(pontos, dx, dy):
     return novos
 
 # Renderização
-
 def desenhar_pontos(pontos, matriz):
     for (px, py) in pontos:
         col = px - xmin
@@ -64,7 +59,6 @@ def desenhar_pontos(pontos, matriz):
             matriz[lin][col] = "X"
 
 # Consultas
-
 def mapear_arestas(pontos, arestas):
     print("\nMAPEAMENTO DE ARESTAS:\n")
     for i, (p1, p2) in enumerate(arestas):
@@ -74,7 +68,6 @@ def mapear_arestas(pontos, arestas):
         print(f"E{i}: ({x1},{y1}) -> ({x2},{y2}) | Comprimento = {comprimento:.2f}")
 
 # Impressão da estrutura
-
 def imprimir_estrutura(pontos, arestas, faces, matriz):
     print("\n" + "="*50)
     print("ESTRUTURA DO OBJETO - TRÊS TRAPÉZIOS")
@@ -108,7 +101,6 @@ dy = valida_int("Informe o deslocamento em Y (dy): ")
 
 pontos = transladar_pontos(pontos, dx, dy) #Criemos uma nova matriz, não mudar antiga
 
- 
 matriz = criar_matriz()
 desenhar_pontos(pontos, matriz)
 
