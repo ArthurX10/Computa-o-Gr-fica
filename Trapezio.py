@@ -27,10 +27,11 @@ def criar_matriz():
 
 # Estruturas de dados
 
+#Pontos estruturados via geogebra -> Tem que ser no mínimo 25x30 para visualizar
 pontos = [
-    (3,4), (6,4), (5,8), (4,8),
-    (9,4), (12,4), (11,8), (10,8),
-    (15,4), (18,4), (17,8), (16,8)
+    (10,3), (2,3), (6,8), (2,8), #Trapézio retângulo
+    (15,3), (17,3), (18,8), (13,8), #Trapézio isósceles
+    (23,3), (32,3), (30,8), (24,8) #Trapézio escaleno
 ]
 
 arestas = [
@@ -105,8 +106,9 @@ mapear_arestas(pontos, arestas)
 dx = valida_int("\nInforme o deslocamento em X (dx): ")
 dy = valida_int("Informe o deslocamento em Y (dy): ")
 
-pontos = transladar_pontos(pontos, dx, dy)
+pontos = transladar_pontos(pontos, dx, dy) #Criemos uma nova matriz, não mudar antiga
 
+ 
 matriz = criar_matriz()
 desenhar_pontos(pontos, matriz)
 
