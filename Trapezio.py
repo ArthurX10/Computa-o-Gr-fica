@@ -16,19 +16,17 @@ if xmin >= xmax or ymin >= ymax:
     print("Os valores mínimos devem ser menores que os máximos.")
     exit()
 
-# Definição do SRU
 largura = xmax - xmin + 1
 altura = ymax - ymin + 1
 
 def criar_matriz():
     return [["." for _ in range(largura)] for _ in range(altura)]
 
-# Estruturas de dados
-#Pontos estruturados via geogebra -> Tem que ser no mínimo 25x30 para visualizar
+
 pontos = [
-    (10,3), (2,3), (6,8), (2,8), #Trapézio retângulo
-    (15,3), (17,3), (18,8), (13,8), #Trapézio isósceles
-    (23,3), (32,3), (30,8), (24,8) #Trapézio escaleno
+         (3,4), (6,4), (5,8), (4,8),     
+         (9,4), (12,4), (11,8), (10,8),  
+         (15,4), (18,4), (17,8), (16,8)   
 ]
 
 arestas = [
@@ -43,14 +41,19 @@ faces = [
     (8,9,10,11)
 ]
 
-# Operações geométricas
+def marcar_origem(matriz):
+    col = 0 - xmin
+    lin = ymax - 0
+
+    if 0 <= lin < altura and 0 <= col < largura:
+        matriz[lin][col] = "O"
+
 def transladar_pontos(pontos, dx, dy):
     novos = []
     for (x, y) in pontos:
         novos.append((x + dx, y + dy))
     return novos
 
-# Renderização
 def desenhar_pontos(pontos, matriz):
     for (px, py) in pontos:
         col = px - xmin
@@ -58,7 +61,28 @@ def desenhar_pontos(pontos, matriz):
         if 0 <= lin < altura and 0 <= col < largura:
             matriz[lin][col] = "X"
 
-# Consultas
+def desenhar_linhas(matriz, ponto, aresta):
+    """Desenha as arestas unindo os pontos na matriz"""
+    for p1_idx, p2_idx in aresta:
+        x1, y1 = ponto[p1_idx]
+        x2, y2 = ponto[p2_idx]
+        
+        # Algoritmo de desenho de linha simples
+        passos = max(abs(x2 - x1), abs(y2 - y1))
+        if passos == 0: continue
+        
+        x_inc = (x2 - x1) / passos
+        y_inc = (y2 - y1) / passos
+        
+        curr_x, curr_y = x1, y1
+        for _ in range(passos + 1):
+            col = round(curr_x) - xmin
+            lin = ymax - round(curr_y)
+            if 0 <= lin < altura and 0 <= col < largura:
+                matriz[lin][col] = 'x'
+            curr_x += x_inc
+            curr_y += y_inc
+
 def mapear_arestas(pontos, arestas):
     print("\nMAPEAMENTO DE ARESTAS:\n")
     for i, (p1, p2) in enumerate(arestas):
@@ -67,7 +91,6 @@ def mapear_arestas(pontos, arestas):
         comprimento = math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
         print(f"E{i}: ({x1},{y1}) -> ({x2},{y2}) | Comprimento = {comprimento:.2f}")
 
-# Impressão da estrutura
 def imprimir_estrutura(pontos, arestas, faces, matriz):
     print("\n" + "="*50)
     print("ESTRUTURA DO OBJETO - TRÊS TRAPÉZIOS")
@@ -91,18 +114,22 @@ def imprimir_estrutura(pontos, arestas, faces, matriz):
 
     print("="*50)
 
-matriz = criar_matriz()
-desenhar_pontos(pontos, matriz)
-imprimir_estrutura(pontos, arestas, faces, matriz)
-mapear_arestas(pontos, arestas)
+# EXECUÇÃO
 
-dx = valida_int("\nInforme o deslocamento em X (dx): ")
-dy = valida_int("Informe o deslocamento em Y (dy): ")
+while True:
+    m = criar_matriz()
+    
+    marcar_origem(m)
+    desenhar_linhas(m, pontos, arestas)
+    
+    imprimir_estrutura(pontos, arestas, faces, m)
+    mapear_arestas(pontos, arestas)
 
-pontos = transladar_pontos(pontos, dx, dy) #Criemos uma nova matriz, não mudar antiga
+    print("\n--- MOVIMENTAR OBJETO ---")
+    dx = valida_int("Informe o deslocamento em X (dx): ")
+    dy = valida_int("Informe o deslocamento em Y (dy): ")
 
-matriz = criar_matriz()
-desenhar_pontos(pontos, matriz)
-
-print("\nAPÓS TRANSLAÇÃO:")
-imprimir_estrutura(pontos, arestas, faces, matriz)
+    novos_pontos = []
+    for (px, py) in pontos:
+        novos_pontos.append((px + dx, py + dy))
+    pontos = novos_pontos
