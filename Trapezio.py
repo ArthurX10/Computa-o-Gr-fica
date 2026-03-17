@@ -24,9 +24,9 @@ def criar_matriz():
 
 
 pontos = [
-         (10,3), (2,3), (6,8), (2,8), #Trapézio retângulo
-         (15,3), (17,3), (18,8), (13,8), #Trapézio isósceles
-         (23,3), (32,3), (30,8), (24,8) #Trapézio escaleno  
+    (2,3), (16,3), (10,11), (2,11),      # Trapézio retângulo
+    (20,3), (36,3), (31,11), (25,11),    # Trapézio isósceles
+    (40,3), (58,3), (52,11), (47,11)     # Trapézio escaleno
 ]
 
 arestas = [
