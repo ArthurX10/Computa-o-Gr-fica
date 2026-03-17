@@ -1,3 +1,7 @@
+
+def caucula_pivo():
+    pass
+
 '''
 def muda_escala(ponto, fatorX, fatorY):
     ponto[0] *= fatorX
