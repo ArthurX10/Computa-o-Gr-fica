@@ -50,8 +50,8 @@ def criar_matriz():
 
 pontos = [
     (2, 3), (16, 3), (10, 11), (2, 11),  # Trapézio retângulo
-    (20, 3), (36, 3), (31, 11), (25, 11),  # Trapézio isósceles
-    (40, 3), (58, 3), (52, 11), (47, 11)  # Trapézio escaleno
+    (38, 3), (41, 3), (43, 11), (35, 11),  # Trapézio isósceles
+    (60, 3), (75, 3), (69, 11), (63, 11)  # Trapézio escaleno
 ]
 
 arestas = [
@@ -66,6 +66,8 @@ faces = [
     (8, 9, 10, 11)
 ]
 
+pontos_originais = pontos.copy() #pontos originais imutáveis
+pontos_atuais = pontos.copy() #pontos que serão alterados
 
 def marcar_origem(matriz):
     col = 0 - xmin
@@ -124,8 +126,6 @@ def imprimir_estrutura(pontos, arestas, faces, matriz):
         print(" ".join(linha))
 
     
-
-
 # EXECUÇÃO
 
 while True:
@@ -141,9 +141,14 @@ while True:
     print("MENU DE TRANSFORMAÇÕES")
     print("1. Movimentar Objeto (Translação)")
     print("2. Espelhar Objeto (Reflexão)")
-    print("3. Sair")
+    print("3. Rotacionar Objeto (Rotação)")
+    print("4. Escalonar Objeto (Escala)")
+    print("5. Cisalhar Objeto (Cisalhamento)")
+    print("6. Imprimir Objeto original")
+    print("7. Redefinir Objeto atual")
+    print("0. Sair")
 
-    escolha = valida_int("Escolha a transformação desejada (1, 2 ou 3): ")
+    escolha = valida_int("Escolha a transformação desejada: ")
 
     if escolha == 1:
         print("\n--- MOVIMENTAR OBJETO ---")
