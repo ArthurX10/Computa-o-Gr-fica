@@ -41,11 +41,11 @@ def cisalhar_figura(pontos, opcao, c):
             y_att = py
 
         elif opcao == 2:
-            x_att = px
+            x_att = px #bug aq
             y_att = py + c * px
 
         elif opcao == 3:
-            x_att = px + c * py
+            x_att = px + c * py #bug aq
             y_att = py + c * px
 
         else:
