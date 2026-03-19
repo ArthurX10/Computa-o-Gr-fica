@@ -47,7 +47,7 @@ altura = ymax - ymin + 1
 def criar_matriz():
     return [["." for _ in range(largura)] for _ in range(altura)]
 
-
+#OBJETO
 pontos = [
     (2, 3), (16, 3), (10, 11), (2, 11),  
     (38, 3), (41, 3), (43, 11), (35, 11),  
@@ -69,12 +69,22 @@ faces = [
 pontos_originais = pontos.copy() 
 pontos_atuais = pontos.copy() 
 
-def marcar_origem(matriz):
-    col = 0 - xmin
-    lin = ymax - 0
+def desenhar_eixos(matriz):
+    lin_zero = ymax - 0
+    col_zero = 0 - xmin
 
-    if 0 <= lin < altura and 0 <= col < largura:
-        matriz[lin][col] = "O"
+    for i in range(altura):
+        for j in range(largura):
+
+            if 0 <= lin_zero < altura and i == lin_zero:
+                matriz[i][j] = '-'
+
+            if 0 <= col_zero < largura and j == col_zero:
+                matriz[i][j] = '|'
+
+    if 0 <= lin_zero < altura and 0 <= col_zero < largura:
+        matriz[lin_zero][col_zero] = 'O'
+
 
 
 def transladar_pontos(pontos, dx, dy):
@@ -130,10 +140,10 @@ def imprimir_estrutura(pontos, arestas, faces, matriz):
 while True:
     m = criar_matriz()
 
-    marcar_origem(m)
+    desenhar_eixos(m)
     desenhar_linhas(m, pontos_atuais, arestas)
 
-    imprimir_estrutura(pontos, arestas, faces, m)
+    imprimir_estrutura(pontos_atuais , arestas, faces, m)
    
 
     print("\n" + "=" * 50)
@@ -163,9 +173,31 @@ while True:
 
         opcao_reflexao = valida_int("Escolha o tipo de reflexão: ")
         pontos_atuais = refletir_figura(pontos_atuais, opcao_reflexao)
-
+        
     elif escolha == 3:
-        print("Encerrando o programa...")
+        #op rotação
+        pass
+        
+    elif escolha == 4:
+        #op escala
+        pass
+
+    elif escolha == 5:
+        #op cisalhamento
+        pass
+
+    elif escolha == 6:
+        m = criar_matriz()
+        desenhar_eixos(m)
+        desenhar_linhas(m, pontos_originais, arestas)
+        imprimir_estrutura(pontos_originais, arestas, faces, m)
+
+    elif escolha == 7:
+        pontos_atuais = pontos_originais.copy()
+        print("Objeto resetado.")
+
+    elif escolha == 0:
+        print("Encerrando...")
         break
 
     else:
