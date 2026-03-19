@@ -31,6 +31,32 @@ def refletir_figura(pontos, opcao):
     print("Reflexão aplicada")
     return novos_pontos
 
+def cisalhar_figura(pontos, opcao, c):
+    novos_pontos = []
+
+    for (px, py) in pontos:
+
+        if opcao == 1:
+            x_att = px + c * py
+            y_att = py
+
+        elif opcao == 2:
+            x_att = px
+            y_att = py + c * px
+
+        elif opcao == 3:
+            x_att = px + c * py
+            y_att = py + c * px
+
+        else:
+            print("Opção inválida!")
+            return pontos
+
+        novos_pontos.append((x_att, y_att))
+
+    print("Cisalhamento aplicado")
+    return novos_pontos
+
 xmin = valida_int("Informe o limite inferior de X: ")
 xmax = valida_int("Informe o limite superior de X: ")
 ymin = valida_int("Informe o limite inferior de Y: ")
@@ -183,8 +209,15 @@ while True:
         pass
 
     elif escolha == 5:
-        #op cisalhamento
-        pass
+        print("\n--- OPÇÕES DE CISALHAMENTO ---")
+        print("1. Em X")
+        print("2. Em Y")
+        print("3. Em X e em Y")
+
+        opcao_c = valida_int("Informe o tipo de cisalhamento: ")
+        c = valida_int("Informe o coeficiente de cisalhamento: ")
+        pontos_atuais = cisalhar_figura(pontos_atuais, opcao_c, c)
+        
 
     elif escolha == 6:
         m = criar_matriz()
