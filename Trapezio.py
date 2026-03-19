@@ -92,7 +92,6 @@ faces = [
     (8, 9, 10, 11)
 ]
 
-pontos_originais = pontos.copy() 
 pontos_atuais = pontos.copy() 
 
 def desenhar_eixos(matriz):
@@ -121,11 +120,17 @@ def transladar_pontos(pontos, dx, dy):
 
 
 def desenhar_pontos(pontos, matriz):
-    for (px, py) in pontos:
+    letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+    for i, (px, py) in enumerate(pontos):
         col = px - xmin
         lin = ymax - py
+
         if 0 <= lin < altura and 0 <= col < largura:
-            matriz[lin][col] = "X"
+            if i < len(letras):
+                matriz[lin][col] = letras[i]
+            else:
+                matriz[lin][col] = "*"
 
 
 def desenhar_linhas(matriz, ponto, aresta):
@@ -168,6 +173,7 @@ while True:
 
     desenhar_eixos(m)
     desenhar_linhas(m, pontos_atuais, arestas)
+    desenhar_pontos(pontos_atuais, m)
 
     imprimir_estrutura(pontos_atuais , arestas, faces, m)
    
@@ -222,11 +228,12 @@ while True:
     elif escolha == 6:
         m = criar_matriz()
         desenhar_eixos(m)
-        desenhar_linhas(m, pontos_originais, arestas)
-        imprimir_estrutura(pontos_originais, arestas, faces, m)
+        desenhar_linhas(m, pontos, arestas)
+        desenhar_pontos(pontos, m)
+        imprimir_estrutura(pontos, arestas, faces, m)
 
     elif escolha == 7:
-        pontos_atuais = pontos_originais.copy()
+        pontos_atuais = pontos.copy()
         print("Objeto resetado.")
 
     elif escolha == 0:
