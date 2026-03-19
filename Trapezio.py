@@ -11,9 +11,9 @@ def valida_int(texto):
 def refletir_figura(pontos, opcao):
 
     matrizes = {
-        1: [[1, 0], [0, -1]], #inverte o y
-        2: [[-1, 0], [0, 1]], #inverte o x
-        3: [[-1, 0], [0, -1]] #inverte o x e y
+        1: [[1, 0], [0, -1]], 
+        2: [[-1, 0], [0, 1]], 
+        3: [[-1, 0], [0, -1]] 
     }
 
     if opcao not in matrizes:
@@ -49,9 +49,9 @@ def criar_matriz():
 
 
 pontos = [
-    (2, 3), (16, 3), (10, 11), (2, 11),  # Trapézio retângulo
-    (38, 3), (41, 3), (43, 11), (35, 11),  # Trapézio isósceles
-    (60, 3), (75, 3), (69, 11), (63, 11)  # Trapézio escaleno
+    (2, 3), (16, 3), (10, 11), (2, 11),  
+    (38, 3), (41, 3), (43, 11), (35, 11),  
+    (60, 3), (75, 3), (69, 11), (63, 11)  
 ]
 
 arestas = [
@@ -66,8 +66,8 @@ faces = [
     (8, 9, 10, 11)
 ]
 
-pontos_originais = pontos.copy() #pontos originais imutáveis
-pontos_atuais = pontos.copy() #pontos que serão alterados
+pontos_originais = pontos.copy() 
+pontos_atuais = pontos.copy() 
 
 def marcar_origem(matriz):
     col = 0 - xmin
@@ -98,7 +98,6 @@ def desenhar_linhas(matriz, ponto, aresta):
         x1, y1 = ponto[p1_idx]
         x2, y2 = ponto[p2_idx]
 
-        # Algoritmo de desenho de linha simples
         passos = max(abs(x2 - x1), abs(y2 - y1))
         if passos == 0: continue
 
@@ -132,7 +131,7 @@ while True:
     m = criar_matriz()
 
     marcar_origem(m)
-    desenhar_linhas(m, pontos, arestas)
+    desenhar_linhas(m, pontos_atuais, arestas)
 
     imprimir_estrutura(pontos, arestas, faces, m)
    
@@ -154,7 +153,7 @@ while True:
         print("\n--- MOVIMENTAR OBJETO ---")
         dx = valida_int("Informe o deslocamento em X (dx): ")
         dy = valida_int("Informe o deslocamento em Y (dy): ")
-        pontos = transladar_pontos(pontos, dx, dy)
+        pontos_atuais = transladar_pontos(pontos_atuais, dx, dy)
 
     elif escolha == 2:
         print("\n--- OPÇÕES DE REFLEXÃO ---")
@@ -163,7 +162,7 @@ while True:
         print("3. Origem (Inverte X e Y)")
 
         opcao_reflexao = valida_int("Escolha o tipo de reflexão: ")
-        pontos = refletir_figura(pontos, opcao_reflexao)
+        pontos_atuais = refletir_figura(pontos_atuais, opcao_reflexao)
 
     elif escolha == 3:
         print("Encerrando o programa...")
