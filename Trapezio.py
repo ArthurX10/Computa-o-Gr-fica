@@ -145,11 +145,16 @@ def rotacionar_pontos(pontos, angulo_graus, cx = 0, cy = 0):
 def muda_escala(lis_pont, fatX, fatY):
 
     novos_pontos = []
+    pivo = lis_pont[0]
 
-    for i in range(0, 12):
-        temp = lis_pont[i]
-        novos_pontos.append( (temp[0] * fatX, temp[1] * fatY) )
+    for (x, y) in lis_pont:
+        novos_pontos.append( (x * fatX, y * fatY) )
+    
+    desX = novos_pontos[0][0] - pivo[0]
+    desY = novos_pontos[0][1] - pivo[1]
 
+    novos_pontos = transladar_pontos(novos_pontos, -desX, -desY)
+    
     return novos_pontos
 
 
