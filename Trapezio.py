@@ -141,6 +141,17 @@ def rotacionar_pontos(pontos, angulo_graus, cx = 0, cy = 0):
 
     return novos_pontos
 
+# Mudança de escala
+def muda_escala(lis_pont, fatX, fatY):
+
+    novos_pontos = []
+
+    for i in range(0, 12):
+        temp = lis_pont[i]
+        novos_pontos.append( (temp[0] * fatX, temp[1] * fatY) )
+
+    return novos_pontos
+
 
 def desenhar_pontos(pontos, matriz):
     letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -234,8 +245,10 @@ while True:
         pontos_atuais = rotacionar_pontos(pontos_atuais, angulo)
         
     elif escolha == 4:
-        #op escala
-        pass
+        print("\n--- ESCALAR OBJETO ---")
+        fX = valida_int("Informe o fator de escala em x: ")
+        fY = valida_int("Informe o fator de escala em y: ")
+        pontos_atuais = muda_escala(pontos_atuais, fX, fY)
 
     elif escolha == 5:
         print("\n--- OPÇÕES DE CISALHAMENTO ---")
