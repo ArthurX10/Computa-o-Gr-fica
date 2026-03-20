@@ -103,7 +103,6 @@ def desenhar_eixos(matriz):
 
             if 0 <= lin_zero < altura and i == lin_zero:
                 matriz[i][j] = '-'
-
             if 0 <= col_zero < largura and j == col_zero:
                 matriz[i][j] = '|'
 
@@ -117,6 +116,30 @@ def transladar_pontos(pontos, dx, dy):
     for (x, y) in pontos:
         novos.append((x + dx, y + dy))
     return novos
+
+
+
+# rotação 
+
+def rotacionar_pontos(pontos, angulo_graus, cx = 0, cy = 0):
+
+    theta = np.radians(angulo_graus) # transforma em radianos
+    c, s = np.cos(theta), np.sin(theta) # calcula o sen e o cos
+
+    R = np.array([
+        [c, -s],
+        [s,  c]
+    ])
+
+    novos_pontos = []
+    for (x, y) in pontos:
+        ponto = np.array([x, y]) 
+        rotacionado = R @ ponto # é um multiplicador de matrizes do numpy
+        novo_x = round(rotacionado[0] + cx)
+        novo_y = round(rotacionado[1] + cy)
+        novos_pontos.append((novo_x, novo_y))
+
+    return novos_pontos
 
 
 def desenhar_pontos(pontos, matriz):
@@ -207,8 +230,8 @@ while True:
         pontos_atuais = refletir_figura(pontos_atuais, opcao_reflexao)
         
     elif escolha == 3:
-        #op rotação
-        pass
+        angulo = valida_int("Informe o ângulo de rotação (em graus): ")
+        pontos_atuais = rotacionar_pontos(pontos_atuais, angulo)
         
     elif escolha == 4:
         #op escala
