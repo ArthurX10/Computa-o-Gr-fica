@@ -1,12 +1,19 @@
-#dentro do switch vai ter que colocar uma linha para coletar o angulo para a rotação do trapezio
-angulo = valida_int("O valor do angulo que você deseja rotacionar: ")
-def matrizRotacao(pontos, angulo): 
-  print("\nMatriz de Rotação\n")
-   theta = np.radians(angulo_graus)
-  #criar um for para calcular todos os pontos
-   c, s = np.cos(theta), np.sin(theta)
-   R = np.array(((c, -s) (s, c)))
+def rotacionar_pontos(pontos, angulo_graus, cx = 0, cy = 0):
 
-   return np.dot(R, ponto)
+    theta = np.radians(angulo_graus) # transforma em radianos
+    c, s = np.cos(theta), np.sin(theta) # calcula o sen e o cos
 
-   ponto = np.array((1, 0))
+    R = np.array([
+        [c, -s],
+        [s,  c]
+    ])
+
+    novos_pontos = []
+    for (x, y) in pontos:
+        ponto = np.array([x, y]) 
+        rotacionado = R @ ponto # é um multiplicador de matrizes do numpy
+        novo_x = round(rotacionado[0] + cx)
+        novo_y = round(rotacionado[1] + cy)
+        novos_pontos.append((novo_x, novo_y))
+
+    return novos_pontos
