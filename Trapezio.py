@@ -148,7 +148,7 @@ def muda_escala(lis_pont, fatX, fatY):
     pivo = lis_pont[0]
 
     for (x, y) in lis_pont:
-        novos_pontos.append( (x * fatX, y * fatY) )
+        novos_pontos.append( (int(x * fatX) , int(y * fatY)) )
     
     desX = novos_pontos[0][0] - pivo[0]
     desY = novos_pontos[0][1] - pivo[1]
@@ -251,8 +251,8 @@ while True:
         
     elif escolha == 4:
         print("\n--- ESCALAR OBJETO ---")
-        fX = valida_int("Informe o fator de escala em x: ")
-        fY = valida_int("Informe o fator de escala em y: ")
+        fX = float(input("Informe o fator de escala em x: ").replace(',','.'))
+        fY = float(input("Informe o fator de escala em y: ").replace(',','.'))
         pontos_atuais = muda_escala(pontos_atuais, fX, fY)
 
     elif escolha == 5:
